@@ -1,0 +1,13 @@
+﻿<Page path="~/pages/ca/ca203000.aspx" pageSource="pVZNj9s2ED0nQP6DoGKvtuOmQBrIQb3ybmPATgXL2d1bQEuzFmuKVEnKHz30t2eoD1vWmhvBvRg0xXnzZjhvON7NH05A1uDMCF/nuBi5/i+uMydKgzQf7inDvf/6px3Vn1GlHyjsemmx6TrjXIu7LXD9SCXk2cjVMgfXeSCMxkTDAv7JQemR+0yYwn1fxBWuPx4Ofh0MBj2isn0vUq4z5QlIqtXINb6+1wdcZ0m1sfjGtVnEBWvXufn87u27tx5GURJcHjJwHqjUOWEB0clPqRsAD71/8gXXGIEznYzcCNfvDc9iK2Akgi+CxSDNxyyZhK4jc04wohDkFmEQ5I2X7T8FTxOiSShyGUGBFGNIjzQ2RN4PBjdHO1XaOYGkKZEHQ2nk3nEtDyYCjBZ/v5IUAw6een+t/oZIq54/7h2PzAnlGlNMFV2ZvCxNxg2NN55PGFuRaOOLNCU8VsVuTS9sfXVKL1OOjJp49+VV9bsYh2Rb3GqaUu0nWEigKkLd7CfAQMOVzu+pVNcSDyRsqcjVleZfYX+t5xm5mrQvskNgqtdm7/UvVYDXb9WnKfx+o/JtQhjahTCz6+BPSeMCYo2LF2X/Beg6wf8fBoNs31KICWHMmNihYilf15U0jjQVXAVCUbPAbZHhrjkYApFRUh88RVgL0CCGG8rN/0pwqDCymvIY9oVb1wkPPGpgn9Q0gy2wMw2Z0IrdwtUc0hXIpnjLs6hDwfKUV6ZN4/JDYX1PgcUN42l8zMbvRWpMazXXeYvXWfHqd0GcSF+WbcSsRTYRO26aXzPZBr8bGKhIHi2Hv3W3nIs4Z/AqkY+2OLt5WMAzSODmthuxffxfmLeS8ChpAg67hzyOIpFz/dL6UoPshBjmqybah+5cvilYigVEjChFn7FtHFLUsWozu5So8sb8BKLNrcAzS2x2Y0bXqA4fMVDFnRj4RCXWjFxb3NiPlChni3Y9d6eNbfJMoN5C7JaQZgxRz0nMyEHkeoGF3O5joSZSlzB13mZkhf2iIhXOy+YpBQvpv0jsaf7i5nA82dzFtGy4EJ+1gpY7W8doQ4b4oEZayAryVM52vNMZcykoKgkqsYgmhLUpI0PcKcPam8mt8NW4a7uzxqFXoEvAqvjtYNUBWwoujiUl9FnrsDs4O/bz7JiKa9xn1Tvt8NWBFkpdweUznGysSrYDW01em9Rs/s8kZ/d5duyktBfSqqaR41NaDS6Nx9YzmTbVVQgIp13zyD5SHoud69xxgnNPXHOfU15PFEPzmFdzUDky3BJZoTf/47BzdNBCu+Cv5eAzYlXGjdHKBHNhqPoB">
+    <PXGridLevel DataMember="EntryType" ParentId="phL_grid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
+        <Children Key="Columns">
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrEntryTypeClass" />
+                    <Prop Key="Width" Value="140" />
+                </PXGridColumn>
+            </AddItem>
+            <PXGridColumn DataField="ReferenceID" OriginalIndex="4" />
+        </Children>
+    </PXGridLevel>
+</Page>

@@ -1,0 +1,45 @@
+﻿<Page path="~/pages/so/so101000.aspx" ControlId="1" pageSource="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">
+    <PXTab ID="tab" ParentId="phF_tab" TypeFullName="PX.Web.UI.PXTab">
+        <Children Key="Items">
+            <AddItem>
+                <PXTabItem TypeFullName="PX.Web.UI.PXTabItem">
+                    <Prop Key="Text" Value="Ecommerce Actions" />
+                    <Children Key="Template">
+                        <AddItem>
+                            <PXGrid TypeFullName="PX.Web.UI.PXGrid">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="ID" Value="CstPXGrid1" />
+                                <Children Key="Levels">
+                                    <AddItem>
+                                        <PXGridLevel TypeFullName="PX.Web.UI.PXGridLevel">
+                                            <Prop Key="DataMember" Value="ActionPreferences" />
+                                            <Children Key="Columns">
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="Action" />
+                                                        <Prop Key="Width" Value="350" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="Visible" />
+                                                        <Prop Key="Width" Value="150" />
+                                                        <Prop Key="Type" Value="CheckBox" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGridLevel>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="SkinID" Value="Details" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="Height" Value="700px" />
+                            </PXGrid>
+                        </AddItem>
+                    </Children>
+                </PXTabItem>
+            </AddItem>
+        </Children>
+    </PXTab>
+</Page>

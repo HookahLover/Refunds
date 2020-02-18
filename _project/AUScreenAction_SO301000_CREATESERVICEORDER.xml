@@ -1,0 +1,1 @@
+﻿<AUScreenAction ScreenID="SO301000" ActionName="createServiceOrder" DataMember="PX.Objects.SO.SOOrder" MenuFolder="Action" MenuFolderType="ActionsFolder" ActionFolderType="" IsTopLevel="False" />

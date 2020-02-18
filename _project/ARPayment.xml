@@ -1,0 +1,14 @@
+﻿<Table TableName="ARPayment">
+    <Column TableName="ARPayment" ColumnName="UsrLineCntr" ColumnType="int" AllowNull="True" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrOrderType" ColumnType="string" AllowNull="True" MaxLength="2" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrOrderNbr" ColumnType="string" AllowNull="True" MaxLength="15" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrShipping" ColumnType="decimal" AllowNull="True" DecimalPrecision="2" DecimalLength="25" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrSORefunds" ColumnType="bool" AllowNull="True" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrSOCustomerRefNbr" ColumnType="string" AllowNull="True" MaxLength="40" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrAdjustment" ColumnType="decimal" AllowNull="True" DecimalPrecision="2" DecimalLength="25" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrExternalNbr" ColumnType="string" AllowNull="True" MaxLength="50" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrTaxRate" ColumnType="decimal" AllowNull="True" DecimalPrecision="4" DecimalLength="19" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrTotalShipping" ColumnType="decimal" AllowNull="True" DecimalPrecision="4" DecimalLength="18" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrERPAdjustment" ColumnType="decimal" AllowNull="True" DecimalPrecision="4" DecimalLength="19" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="ARPayment" ColumnName="UsrExtComments" ColumnType="string" AllowNull="True" MaxLength="250" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+</Table>

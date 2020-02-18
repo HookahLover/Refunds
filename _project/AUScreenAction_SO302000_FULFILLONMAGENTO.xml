@@ -1,0 +1,3 @@
+﻿<AUScreenAction ScreenID="SO302000" ActionName="FulfillOnMagento" DataMember="PX.Objects.SO.SOShipment" MenuFolder="Action" MenuFolderType="ActionsFolder" ActionFolderType="" IsTopLevel="False">
+    <Prop Name="IsVisible" DisplayName="Visible" IsCustomized="True" Value="False" />
+</AUScreenAction>

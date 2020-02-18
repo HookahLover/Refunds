@@ -1,0 +1,9 @@
+﻿<Table TableName="SOShipment">
+    <Column TableName="SOShipment" ColumnName="UsrCourierService" ColumnType="string" AllowNull="True" MaxLength="100" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrCourierName" ColumnType="string" AllowNull="True" MaxLength="100" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrExtShipmentID" ColumnType="string" AllowNull="True" MaxLength="250" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrEcommerceExclude" ColumnType="bool" AllowNull="True" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrTrackingNumber" ColumnType="string" AllowNull="True" MaxLength="50" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrTrackingURL" ColumnType="string" AllowNull="True" MaxLength="250" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="SOShipment" ColumnName="UsrExtComments" ColumnType="string" AllowNull="True" MaxLength="250" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+</Table>

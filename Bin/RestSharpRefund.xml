@@ -1,0 +1,3516 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestSharpRefund</name>
+    </assembly>
+    <members>
+        <member name="T:RestSharpRefunds.Authenticators.JwtAuthenticator">
+            <summary>
+                JSON WEB TOKEN (JWT) Authenticator class.
+                <remarks>https://tools.ietf.org/html/draft-ietf-oauth-json-web-token</remarks>
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.NtlmAuthenticator">
+            <summary>
+                Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.NtlmAuthenticator.#ctor">
+            <summary>
+                Authenticate with the credentials of the currently logged in user
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.NtlmAuthenticator.#ctor(System.String,System.String)">
+            <summary>
+                Authenticate by impersonation
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.NtlmAuthenticator.#ctor(System.Net.ICredentials)">
+            <summary>
+                Authenticate by impersonation, using an existing <c>ICredentials</c> instance
+            </summary>
+            <param name="credentials"></param>
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.OAuth1Authenticator">
+            <seealso href="http://tools.ietf.org/html/rfc5849" />
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.OAuth2Authenticator">
+            <summary>
+                Base class for OAuth 2 Authenticators.
+            </summary>
+            <remarks>
+                Since there are many ways to authenticate in OAuth2,
+                this is used as a base class to differentiate between
+                other authenticators.
+                Any other OAuth2 authenticators must derive from this
+                abstract class.
+            </remarks>
+        </member>
+        <member name="F:RestSharpRefunds.Authenticators.OAuth2Authenticator.accessToken">
+            <summary>
+                Access token to be used when authenticating.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth2Authenticator.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:RestSharpRefunds.Authenticators.OAuth2Authenticator" /> class.
+            </summary>
+            <param name="accessToken">
+                The access token.
+            </param>
+        </member>
+        <member name="P:RestSharpRefunds.Authenticators.OAuth2Authenticator.AccessToken">
+            <summary>
+                Gets the access token.
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.OAuth2UriQueryParameterAuthenticator">
+            <summary>
+                The OAuth 2 authenticator using URI query parameter.
+            </summary>
+            <remarks>
+                Based on http://tools.ietf.org/html/draft-ietf-oauth-v2-10#section-5.1.2
+            </remarks>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth2UriQueryParameterAuthenticator.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:RestSharpRefunds.Authenticators.OAuth2UriQueryParameterAuthenticator" /> class.
+            </summary>
+            <param name="accessToken">
+                The access token.
+            </param>
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator">
+            <summary>
+                The OAuth 2 authenticator using the authorization request header field.
+            </summary>
+            <remarks>
+                Based on http://tools.ietf.org/html/draft-ietf-oauth-v2-10#section-5.1.1
+            </remarks>
+        </member>
+        <member name="F:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator.authorizationValue">
+            <summary>
+                Stores the Authorization header value as "[tokenType] accessToken". used for performance.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator" /> class.
+            </summary>
+            <param name="accessToken">
+                The access token.
+            </param>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator.#ctor(System.String,System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:RestSharpRefunds.Authenticators.OAuth2AuthorizationRequestHeaderAuthenticator" /> class.
+            </summary>
+            <param name="accessToken">
+                The access token.
+            </param>
+            <param name="tokenType">
+                The token type.
+            </param>
+        </member>
+        <member name="F:RestSharpRefunds.Authenticators.OAuth.OAuthTools.encoding">
+            <summary>
+                All text parameters are UTF-8 encoded (per section 5.1).
+            </summary>
+        </member>
+        <member name="F:RestSharpRefunds.Authenticators.OAuth.OAuthTools.uriRfc3986CharsToEscape">
+            <summary>
+                The set of characters that are unreserved in RFC 2396 but are NOT unreserved in RFC 3986.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetNonce">
+            <summary>
+                Generates a random 16-byte lowercase alphanumeric string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetTimestamp">
+            <summary>
+                Generates a timestamp based on the current elapsed seconds since '01/01/1970 0000 GMT"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetTimestamp(System.DateTime)">
+            <summary>
+                Generates a timestamp based on the elapsed seconds of a given time since '01/01/1970 0000 GMT"
+            </summary>
+            <param name="dateTime">A specified point in time.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.UrlEncodeRelaxed(System.String)">
+            <summary>
+                URL encodes a string based on section 5.1 of the OAuth spec.
+                Namely, percent encoding with [RFC3986], avoiding unreserved characters,
+                upper-casing hexadecimal characters, and UTF-8 encoding for text value pairs.
+            </summary>
+            <param name="value">The value to escape.</param>
+            <returns>The escaped value.</returns>
+            <remarks>
+                The <see cref="M:System.Uri.EscapeDataString(System.String)" /> method is <i>supposed</i> to take on
+                RFC 3986 behavior if certain elements are present in a .config file.  Even if this
+                actually worked (which in my experiments it <i>doesn't</i>), we can't rely on every
+                host actually having this configuration element present.
+            </remarks>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.UrlEncodeStrict(System.String)">
+            <summary>
+                URL encodes a string based on section 5.1 of the OAuth spec.
+                Namely, percent encoding with [RFC3986], avoiding unreserved characters,
+                upper-casing hexadecimal characters, and UTF-8 encoding for text value pairs.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.NormalizeRequestParameters(RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Sorts a collection of key-value pairs by name, and then value if equal,
+                concatenating them into a single string. This string should be encoded
+                prior to, or after normalization is run.
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.SortParametersExcludingSignature(RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Sorts a <see cref="T:RestSharpRefunds.Authenticators.OAuth.WebParameterCollection" /> by name, and then value if equal.
+            </summary>
+            <param name="parameters">A collection of parameters to sort</param>
+            <returns>A sorted parameter collection</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.ConstructRequestUrl(System.Uri)">
+            <summary>
+                Creates a request URL suitable for making OAuth requests.
+                Resulting URLs must exclude port 80 or port 443 when accompanied by HTTP and HTTPS, respectively.
+                Resulting URLs must be lower case.
+            </summary>
+            <param name="url">The original request URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.ConcatenateRequestElements(System.String,System.String,RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Creates a request elements concatenation value to send with a request.
+                This is also known as the signature base.
+            </summary>
+            <param name="method">The request HTTP method type</param>
+            <param name="url">The request URL</param>
+            <param name="parameters">The request parameters</param>
+            <returns>A signature base string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetSignature(RestSharpRefunds.Authenticators.OAuth.OAuthSignatureMethod,System.String,System.String)">
+            <summary>
+                Creates a signature value given a signature base and the consumer secret.
+                This method is used when the token secret is currently unknown.
+            </summary>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer key</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetSignature(RestSharpRefunds.Authenticators.OAuth.OAuthSignatureMethod,RestSharpRefunds.Authenticators.OAuth.OAuthSignatureTreatment,System.String,System.String)">
+            <summary>
+                Creates a signature value given a signature base and the consumer secret.
+                This method is used when the token secret is currently unknown.
+            </summary>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureTreatment">The treatment to use on a signature value</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer key</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetSignature(RestSharpRefunds.Authenticators.OAuth.OAuthSignatureMethod,System.String,System.String,System.String)">
+            <summary>
+                Creates a signature value given a signature base and the consumer secret and a known token secret.
+            </summary>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer secret</param>
+            <param name="tokenSecret">The token secret</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthTools.GetSignature(RestSharpRefunds.Authenticators.OAuth.OAuthSignatureMethod,RestSharpRefunds.Authenticators.OAuth.OAuthSignatureTreatment,System.String,System.String,System.String)">
+            <summary>
+                Creates a signature value given a signature base and the consumer secret and a known token secret.
+            </summary>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureTreatment">The treatment to use on a signature value</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer secret</param>
+            <param name="tokenSecret">The token secret</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow">
+            <summary>
+                A class to encapsulate OAuth authentication flow.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow.BuildRequestTokenInfo(System.String)">
+            <summary>
+                Generates a <see cref="T:RestSharpRefunds.Authenticators.OAuth.OAuthWebQueryInfo" /> instance to pass to an
+                <see cref="T:RestSharpRefunds.Authenticators.IAuthenticator" /> for the purpose of requesting an
+                unauthorized request token.
+            </summary>
+            <param name="method">The HTTP method for the intended request</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow.BuildRequestTokenInfo(System.String,RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Generates a <see cref="T:RestSharpRefunds.Authenticators.OAuth.OAuthWebQueryInfo" /> instance to pass to an
+                <see cref="T:RestSharpRefunds.Authenticators.IAuthenticator" /> for the purpose of requesting an
+                unauthorized request token.
+            </summary>
+            <param name="method">The HTTP method for the intended request</param>
+            <param name="parameters">Any existing, non-OAuth query parameters desired in the request</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow.BuildAccessTokenInfo(System.String)">
+            <summary>
+                Generates a <see cref="T:RestSharpRefunds.Authenticators.OAuth.OAuthWebQueryInfo" /> instance to pass to an
+                <see cref="T:RestSharpRefunds.Authenticators.IAuthenticator" /> for the purpose of exchanging a request token
+                for an access token authorized by the user at the Service Provider site.
+            </summary>
+            <param name="method">The HTTP method for the intended request</param>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow.BuildAccessTokenInfo(System.String,RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Generates a <see cref="T:RestSharpRefunds.Authenticators.OAuth.OAuthWebQueryInfo" /> instance to pass to an
+                <see cref="T:RestSharpRefunds.Authenticators.IAuthenticator" /> for the purpose of exchanging a request token
+                for an access token authorized by the user at the Service Provider site.
+            </summary>
+            <param name="method">The HTTP method for the intended request</param>
+            <param name="parameters">Any existing, non-OAuth query parameters desired in the request</param>
+        </member>
+        <member name="M:RestSharpRefunds.Authenticators.OAuth.OAuthWorkflow.BuildClientAuthAccessTokenInfo(System.String,RestSharpRefunds.Authenticators.OAuth.WebParameterCollection)">
+            <summary>
+                Generates a <see cref="T:RestSharpRefunds.Authenticators.OAuth.OAuthWebQueryInfo" /> instance to pass to an
+                <see cref="T:RestSharpRefunds.Authenticators.IAuthenticator" /> for the purpose of exchanging user credentials
+                for an access token authorized by the user at the Service Provider site.
+            </summary>
+            <param name="method">The HTTP method for the intended request</param>
+            <param name="parameters">Any existing, non-OAuth query parameters desired in the request</param>
+        </member>
+        <member name="T:RestSharpRefunds.ParameterType">
+            <summary>
+             Types of parameters that can be added to requests
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.DataFormat">
+            <summary>
+            Data formats
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Method">
+            <summary>
+            HTTP method to use when making requests
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.DateFormat">
+            <summary>
+            Format strings for commonly-used date formats
+            </summary>
+        </member>
+        <member name="F:RestSharpRefunds.DateFormat.ISO_8601">
+            <summary>
+            .NET format string for ISO 8601 date format
+            </summary>
+        </member>
+        <member name="F:RestSharpRefunds.DateFormat.ROUND_TRIP">
+            <summary>
+            .NET format string for roundtrip date format
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.ResponseStatus">
+            <summary>
+            Status for responses (surprised?)
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Extensions.MiscExtensions">
+            <summary>
+                Extension method overload!
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.MiscExtensions.SaveAs(System.Byte[],System.String)">
+            <summary>
+                Save a byte array to a file
+            </summary>
+            <param name="input">Bytes to save</param>
+            <param name="path">Full path to save file to</param>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.MiscExtensions.ReadAsBytes(System.IO.Stream)">
+            <summary>
+                Read a stream into a byte array
+            </summary>
+            <param name="input">Stream to read</param>
+            <returns>byte[]</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.MiscExtensions.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary>
+                Copies bytes from one stream to another
+            </summary>
+            <param name="input">The input stream.</param>
+            <param name="output">The output stream.</param>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.MiscExtensions.AsString(System.Byte[],System.String)">
+            <summary>
+                Converts a byte array to a string, using its byte order mark to convert it to the right encoding.
+                http://www.shrinkrays.net/code-snippets/csharp/an-extension-method-for-converting-a-byte-array-to-a-string.aspx
+            </summary>
+            <param name="buffer">An array of bytes to convert</param>
+            <param name="encoding">Content encoding. Will fallback to UTF8 if not a valid encoding.</param>
+            <returns>The byte as a string.</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.MiscExtensions.AsString(System.Byte[])">
+            <summary>
+                Converts a byte array to a string, using its byte order mark to convert it to the right encoding.
+                http://www.shrinkrays.net/code-snippets/csharp/an-extension-method-for-converting-a-byte-array-to-a-string.aspx
+            </summary>
+            <param name="buffer">An array of bytes to convert</param>
+            <returns>The byte as a string using UTF8.</returns>
+        </member>
+        <member name="T:RestSharpRefunds.Extensions.ReflectionExtensions">
+            <summary>
+            Reflection extensions
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.ReflectionExtensions.GetAttribute``1(System.Reflection.MemberInfo)">
+            <summary>
+            Retrieve an attribute from a member (property)
+            </summary>
+            <typeparam name="T">Type of attribute to retrieve</typeparam>
+            <param name="prop">Member to retrieve attribute from</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.ReflectionExtensions.GetAttribute``1(System.Type)">
+            <summary>
+            Retrieve an attribute from a type
+            </summary>
+            <typeparam name="T">Type of attribute to retrieve</typeparam>
+            <param name="type">Type to retrieve attribute from</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.ReflectionExtensions.IsSubclassOfRawGeneric(System.Type,System.Type)">
+            <summary>
+            Checks a type to see if it derives from a raw generic (e.g. List[[]])
+            </summary>
+            <param name="toCheck"></param>
+            <param name="generic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.ReflectionExtensions.FindEnumValue(System.Type,System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Find a value from a System.Enum by trying several possible variants
+            of the string value of the enum.
+            </summary>
+            <param name="type">Type of enum</param>
+            <param name="value">Value for which to search</param>
+            <param name="culture">The culture used to calculate the name variants</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.ResponseStatusExtensions.ToWebException(RestSharpRefunds.ResponseStatus)">
+            <summary>
+            Convert a <see cref="T:RestSharpRefunds.ResponseStatus"/> to a <see cref="T:System.Net.WebException"/> instance.
+            </summary>
+            <param name="responseStatus">The response status.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">responseStatus</exception>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.RSACryptoServiceProviderExtensions.FromXmlString2(System.Security.Cryptography.RSACryptoServiceProvider,System.String)">
+            <summary>
+            Imports the specified XML String into the crypto service provider
+            </summary>
+            <remarks>
+             .NET Core 2.0 doesn't provide an implementation of RSACryptoServiceProvider.FromXmlString/ToXmlString, so we have to do it ourselves.
+            Source: https://gist.github.com/Jargon64/5b172c452827e15b21882f1d76a94be4/
+            </remarks>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.UrlEncode(System.String)">
+            <summary>
+                Uses Uri.EscapeDataString() based on recommendations on MSDN
+                http://blogs.msdn.com/b/yangxind/archive/2006/11/09/don-t-use-net-system-uri-unescapedatastring-in-url-decoding.aspx
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.HasValue(System.String)">
+            <summary>
+                Check that a string is not null or empty
+            </summary>
+            <param name="input">String to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.RemoveUnderscoresAndDashes(System.String)">
+            <summary>
+                Remove underscores from a string
+            </summary>
+            <param name="input">String to process</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.ParseJsonDate(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Parses most common JSON date formats
+            </summary>
+            <param name="input">JSON value to parse</param>
+            <param name="culture"></param>
+            <returns>DateTime</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.RemoveSurroundingQuotes(System.String)">
+            <summary>
+                Remove leading and trailing " from a string
+            </summary>
+            <param name="input">String to parse</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.ToPascalCase(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Converts a string to pascal case
+            </summary>
+            <param name="lowercaseAndUnderscoredWord">String to convert</param>
+            <param name="culture"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.ToPascalCase(System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>
+                Converts a string to pascal case with the option to remove underscores
+            </summary>
+            <param name="text">String to convert</param>
+            <param name="removeUnderscores">Option to remove underscores</param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.ToCamelCase(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Converts a string to camel case
+            </summary>
+            <param name="lowercaseAndUnderscoredWord">String to convert</param>
+            <param name="culture"></param>
+            <returns>String</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.MakeInitialLowerCase(System.String)">
+            <summary>
+                Convert the first letter of a string to lower case
+            </summary>
+            <param name="word">String to convert</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.IsUpperCase(System.String)">
+            <summary>
+                Checks to see if a string is all uppper case
+            </summary>
+            <param name="inputString">String to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.AddUnderscores(System.String)">
+            <summary>
+                Add underscores to a pascal-cased string
+            </summary>
+            <param name="pascalCasedWord">String to convert</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.AddDashes(System.String)">
+            <summary>
+                Add dashes to a pascal-cased string
+            </summary>
+            <param name="pascalCasedWord">String to convert</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.AddUnderscorePrefix(System.String)">
+            <summary>
+                Add an undescore prefix to a pascasl-cased string
+            </summary>
+            <param name="pascalCasedWord"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.AddSpaces(System.String)">
+            <summary>
+                Add spaces to a pascal-cased string
+            </summary>
+            <param name="pascalCasedWord">String to convert</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.StringExtensions.GetNameVariants(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Return possible variants of a name for name matching.
+            </summary>
+            <param name="name">String to convert</param>
+            <param name="culture">The culture to use for conversion</param>
+            <returns>IEnumerable&lt;string&gt;</returns>
+        </member>
+        <member name="T:RestSharpRefunds.Extensions.XmlExtensions">
+            <summary>
+            XML Extension Methods
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Extensions.XmlExtensions.AsNamespaced(System.String,System.String)">
+            <summary>
+            Returns the name of an element with the namespace if specified
+            </summary>
+            <param name="name">Element name</param>
+            <param name="namespace">XML Namespace</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.FileParameter">
+            <summary>
+            Container for files to be uploaded with requests
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.FileParameter.Create(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+             Creates a file parameter from an array of bytes.
+            </summary>
+            <param name="name">The parameter name to use in the request.</param>
+            <param name="data">The data to use as the file's contents.</param>
+            <param name="filename">The filename to use in the request.</param>
+            <param name="contentType">The content type to use in the request.</param>
+            <returns>The <see cref="T:RestSharpRefunds.FileParameter"/></returns>
+        </member>
+        <member name="M:RestSharpRefunds.FileParameter.Create(System.String,System.Byte[],System.String)">
+            <summary>
+             Creates a file parameter from an array of bytes.
+            </summary>
+            <param name="name">The parameter name to use in the request.</param>
+            <param name="data">The data to use as the file's contents.</param>
+            <param name="filename">The filename to use in the request.</param>
+            <returns>The <see cref="T:RestSharpRefunds.FileParameter"/> using the default content type.</returns>
+        </member>
+        <member name="M:RestSharpRefunds.FileParameter.Create(System.String,System.Action{System.IO.Stream},System.Int64,System.String,System.String)">
+            <summary>
+             Creates a file parameter from an array of bytes.
+            </summary>
+            <param name="name">The parameter name to use in the request.</param>
+            <param name="writer">Delegate that will be called with the request stream so you can write to it..</param>
+            <param name="contentLength">The length of the data that will be written by te writer.</param>
+            <param name="fileName">The filename to use in the request.</param>
+            <param name="contentType">Optional: parameter content type</param>
+            <returns>The <see cref="T:RestSharpRefunds.FileParameter"/> using the default content type.</returns>
+        </member>
+        <member name="P:RestSharpRefunds.FileParameter.ContentLength">
+            <summary>
+            The length of data to be sent
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.FileParameter.Writer">
+            <summary>
+            Provides raw data for file
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.FileParameter.FileName">
+            <summary>
+            Name of the file to use when uploading
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.FileParameter.ContentType">
+            <summary>
+            MIME content type of file
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.FileParameter.Name">
+            <summary>
+            Name of the parameter
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Http">
+            <summary>
+                HttpWebRequest wrapper (async methods)
+            </summary>
+            <summary>
+                HttpWebRequest wrapper
+            </summary>
+            <summary>
+                HttpWebRequest wrapper (sync methods)
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.AsPostAsync(System.Action{RestSharpRefunds.HttpResponse},System.String)">
+            <summary>
+                Execute an async POST-style request with the specified HTTP Method.
+            </summary>
+            <param name="action"></param>
+            <param name="httpMethod">The HTTP method to execute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Http.AsGetAsync(System.Action{RestSharpRefunds.HttpResponse},System.String)">
+            <summary>
+                Execute an async GET-style request with the specified HTTP Method.
+            </summary>
+            <param name="action"></param>
+            <param name="httpMethod">The HTTP method to execute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Http.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.HasParameters">
+            <summary>
+                True if this HTTP request has any HTTP parameters
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.HasCookies">
+            <summary>
+                True if this HTTP request has any HTTP cookies
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.HasBody">
+            <summary>
+                True if a request body has been specified
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.HasFiles">
+            <summary>
+                True if files have been set to be uploaded
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.AutomaticDecompression">
+            <summary>
+            Enable or disable automatic gzip/deflate decompression
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.AlwaysMultipartFormData">
+            <summary>
+                Always send a multipart/form-data request - even when no Files are present.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.UserAgent">
+            <summary>
+                UserAgent to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Timeout">
+            <summary>
+                Timeout in milliseconds to be used for the request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.ReadWriteTimeout">
+            <summary>
+                The number of milliseconds before the writing or reading times out.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Credentials">
+            <summary>
+                System.Net.ICredentials to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.CookieContainer">
+            <summary>
+                The System.Net.CookieContainer to be used for the request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.AdvancedResponseWriter">
+            <summary>
+                The delegate to use to write the response instead of reading into RawBytes
+                Here you can also check the request details
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.ResponseWriter">
+            <summary>
+                The delegate to use to write the response instead of reading into RawBytes
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Files">
+            <summary>
+                Collection of files to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.FollowRedirects">
+            <summary>
+                Whether or not HTTP 3xx response redirects should be automatically followed
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Pipelined">
+            <summary>
+                Whether or not to use pipelined connections
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.ClientCertificates">
+            <summary>
+                X509CertificateCollection to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.MaxRedirects">
+            <summary>
+                Maximum number of automatic redirects to follow if FollowRedirects is true
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.UseDefaultCredentials">
+            <summary>
+                Determine whether or not the "default credentials" (e.g. the user account under which the current process is
+                running) ///     will be sent along to the server.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.ConnectionGroupName">
+            <summary>
+                The ConnectionGroupName property enables you to associate a request with a connection group. 
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Encoding">
+            <summary>
+                Encoding for the request, UTF8 is the default
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Headers">
+            <summary>
+                HTTP headers to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Parameters">
+            <summary>
+                HTTP parameters (QueryString or Form values) to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Cookies">
+            <summary>
+                HTTP cookies to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.RequestBody">
+            <summary>
+                Request body to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.RequestContentType">
+            <summary>
+                Content type of the request body.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.RequestBodyBytes">
+            <summary>
+                An alternative to RequestBody, for when the caller already has the byte array.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Url">
+            <summary>
+                URL to call for this request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Host">
+            <summary>
+            Explicit Host header value to use in requests independent from the request URI.
+            If null, default host value extracted from URI is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.AllowedDecompressionMethods">
+            <summary>
+            List of Allowed Decompression Methods
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.PreAuthenticate">
+            <summary>
+                Flag to send authorisation header with the HttpWebRequest
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.UnsafeAuthenticatedConnectionSharing">
+            <summary>
+            Flag to reuse same connection in the HttpWebRequest
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.Proxy">
+            <summary>
+                Proxy info to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.CachePolicy">
+            <summary>
+                Caching policy for requests created with this wrapper.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Http.RemoteCertificateValidationCallback">
+            <summary>
+                Callback function for handling the validation of remote certificates.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Create">
+            <summary>
+                Creates an IHttp
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Post">
+            <summary>
+                Execute a POST request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Put">
+            <summary>
+                Execute a PUT request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Get">
+            <summary>
+                Execute a GET request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Head">
+            <summary>
+                Execute a HEAD request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Options">
+            <summary>
+                Execute an OPTIONS request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Delete">
+            <summary>
+                Execute a DELETE request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Patch">
+            <summary>
+                Execute a PATCH request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.Merge">
+            <summary>
+                Execute a MERGE request
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Http.AsGet(System.String)">
+            <summary>
+                Execute a GET-style request with the specified HTTP Method.
+            </summary>
+            <param name="httpMethod">The HTTP method to execute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.Http.AsPost(System.String)">
+            <summary>
+                Execute a POST-style request with the specified HTTP Method.
+            </summary>
+            <param name="httpMethod">The HTTP method to execute.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.HttpCookie">
+            <summary>
+            Representation of an HTTP cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Comment">
+            <summary>
+            Comment of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.CommentUri">
+            <summary>
+            Comment of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Discard">
+            <summary>
+            Indicates whether the cookie should be discarded at the end of the session
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Domain">
+            <summary>
+            Domain of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Expired">
+            <summary>
+            Indicates whether the cookie is expired
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Expires">
+            <summary>
+            Date and time that the cookie expires
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.HttpOnly">
+            <summary>
+            Indicates that this cookie should only be accessed by the server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Name">
+            <summary>
+            Name of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Path">
+            <summary>
+            Path of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Port">
+            <summary>
+            Port of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Secure">
+            <summary>
+            Indicates that the cookie should only be sent over secure channels
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.TimeStamp">
+            <summary>
+            Date and time the cookie was created
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Value">
+            <summary>
+            Value of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpCookie.Version">
+            <summary>
+            Version of the cookie
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.HttpFile">
+            <summary>
+            Container for HTTP file
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpFile.ContentLength">
+            <summary>
+            The length of data to be sent
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpFile.Writer">
+            <summary>
+            Provides raw data for file
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpFile.FileName">
+            <summary>
+            Name of the file to use when uploading
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpFile.ContentType">
+            <summary>
+            MIME content type of file
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpFile.Name">
+            <summary>
+            Name of the parameter
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.HttpHeader">
+            <summary>
+            Representation of an HTTP header
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpHeader.Name">
+            <summary>
+            Name of the header
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpHeader.Value">
+            <summary>
+            Value of the header
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.HttpParameter">
+            <summary>
+            Representation of an HTTP parameter (QueryString or Form value)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpParameter.Name">
+            <summary>
+            Name of the parameter
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpParameter.Value">
+            <summary>
+            Value of the parameter
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpParameter.ContentType">
+            <summary>
+            Content-Type of the parameter
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.HttpResponse">
+            <summary>
+                HTTP response data
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.HttpResponse.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ContentType">
+            <summary>
+                MIME content type of response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ContentLength">
+            <summary>
+                Length in bytes of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ContentEncoding">
+            <summary>
+                Encoding of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.Content">
+            <summary>
+                Lazy-loaded string representation of response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.StatusCode">
+            <summary>
+                HTTP response status code
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.StatusDescription">
+            <summary>
+                Description of HTTP status returned
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.RawBytes">
+            <summary>
+                Response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ResponseUri">
+            <summary>
+                The URL that actually responded to the content (different from request if redirected)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.Server">
+            <summary>
+                HttpWebResponse.Server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.Headers">
+            <summary>
+                Headers returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.Cookies">
+            <summary>
+                Cookies returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ResponseStatus">
+            <summary>
+                Status of the request. Will return Error for transport errors.
+                HTTP errors will still return ResponseStatus.Completed, check StatusCode instead
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ErrorMessage">
+            <summary>
+                Transport or other non-HTTP error generated while attempting request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ErrorException">
+            <summary>
+                Exception thrown when error is encountered.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.HttpResponse.ProtocolVersion">
+            <summary>
+                The HTTP protocol version (1.0, 1.1, etc)
+            </summary>
+            <remarks>Only set when underlying framework supports it.</remarks>
+        </member>
+        <member name="P:RestSharpRefunds.IHttp.AutomaticDecompression">
+            <summary>
+            Enable or disable automatic gzip/deflate decompression
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttp.AlwaysMultipartFormData">
+            <summary>
+            Always send a multipart/form-data request - even when no Files are present.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttp.RequestBodyBytes">
+            <summary>
+            An alternative to RequestBody, for when the caller already has the byte array.
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.IHttpResponse">
+            <summary>
+            HTTP response data
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ContentType">
+            <summary>
+            MIME content type of response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ContentLength">
+            <summary>
+            Length in bytes of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ContentEncoding">
+            <summary>
+            Encoding of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.Content">
+            <summary>
+            String representation of response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.StatusCode">
+            <summary>
+            HTTP response status code
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.StatusDescription">
+            <summary>
+            Description of HTTP status returned
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.RawBytes">
+            <summary>
+            Response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ResponseUri">
+            <summary>
+            The URL that actually responded to the content (different from request if redirected)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.Server">
+            <summary>
+            HttpWebResponse.Server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.Headers">
+            <summary>
+            Headers returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.Cookies">
+            <summary>
+            Cookies returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ResponseStatus">
+            <summary>
+            Status of the request. Will return Error for transport errors.
+            HTTP errors will still return ResponseStatus.Completed, check StatusCode instead
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ErrorMessage">
+            <summary>
+            Transport or other non-HTTP error generated while attempting request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ErrorException">
+            <summary>
+            Exception thrown when error is encountered.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IHttpResponse.ProtocolVersion">
+            <summary>
+            The HTTP protocol version (1.0, 1.1, etc)
+            </summary>
+            <remarks>Only set when underlying framework supports it.</remarks>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.UseUrlEncoder(System.Func{System.String,System.String})">
+            <summary>
+            Allows to use a custom way to encode URL parameters
+            </summary>
+            <param name="encoder">A delegate to encode URL parameters</param>
+            <example>client.UseUrlEncoder(s => HttpUtility.UrlEncode(s));</example>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.UseQueryEncoder(System.Func{System.String,System.Text.Encoding,System.String})">
+            <summary>
+            Allows to use a custom way to encode query parameters
+            </summary>
+            <param name="queryEncoder">A delegate to encode query parameters</param>
+            <example>client.UseUrlEncoder((s, encoding) => HttpUtility.UrlEncode(s, encoding));</example>
+            <returns></returns>
+        </member>
+        <member name="P:RestSharpRefunds.IRestClient.ClientCertificates">
+            <summary>
+            X509CertificateCollection to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestClient.RemoteCertificateValidationCallback">
+            <summary>
+            Callback function for handling the validation of remote certificates. Useful for certificate pinning and
+            overriding certificate errors in the scope of a request.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteAsyncGet(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+            Executes a GET-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteAsyncPost(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+            Executes a POST-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteAsyncGet``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+            Executes a GET-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteAsyncPost``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+            Executes a GET-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ConfigureWebRequest(System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Add a delegate to apply custom configuration to HttpWebRequest before making a call
+            </summary>
+            <param name="configurator">Configuration delegate for HttpWebRequest</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.AddHandler(System.String,RestSharpRefunds.Deserializers.IDeserializer)">
+            <summary>
+            Adds or replaces a deserializer for the specified content type
+            </summary>
+            <param name="contentType">Content type for which the deserializer will be replaced</param>
+            <param name="deserializer">Custom deserializer</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.AddHandler(System.String,System.Func{RestSharpRefunds.Deserializers.IDeserializer})">
+            <summary>
+            Adds or replaces a deserializer for the specified content type
+            </summary>
+            <param name="contentType">Content type for which the deserializer will be replaced</param>
+            <param name="deserializerFactory">Custom deserializer factory</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.RemoveHandler(System.String)">
+            <summary>
+            Removes custom deserialzier for the specified content type
+            </summary>
+            <param name="contentType">Content type for which deserializer needs to be removed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ClearHandlers">
+            <summary>
+            Remove deserializers for all content types
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest,RestSharpRefunds.Method)">
+            <summary>
+            Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="httpMethod">Override the request method</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteGetTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes a GET-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteGetTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a GET-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecutePostTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes a POST-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecutePostTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a POST-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken,RestSharpRefunds.Method)">
+            <summary>
+            Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+            <param name="httpMethod">Override the request method</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes the request asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteGetTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes a GET-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecuteGetTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a GET-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecutePostTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+            Executes a POST-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.IRestClient.ExecutePostTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a POST-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.AlwaysMultipartFormData">
+            <summary>
+            Always send a multipart/form-data request - even when no Files are present.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.JsonSerializer">
+            <summary>
+            Serializer to use when writing JSON request bodies. Used if RequestFormat is Json.
+            By default the included JsonSerializer is used (currently using SimpleJson default serialization).
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.XmlSerializer">
+            <summary>
+            Serializer to use when writing XML request bodies. Used if RequestFormat is Xml.
+            By default the included XmlSerializer is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.AdvancedResponseWriter">
+            <summary>
+            Set this to handle the response stream yourself, based on the response details
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.ResponseWriter">
+            <summary>
+            Set this to write response to Stream rather than reading into memory.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Parameters">
+            <summary>
+            Container of all HTTP parameters to be passed with the request. 
+            See AddParameter() for explanation of the types of parameters that can be passed
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Files">
+            <summary>
+            Container of all the files to be uploaded with the request.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Method">
+            <summary>
+            Determines what HTTP method to use for this request. Supported methods: GET, POST, PUT, DELETE, HEAD, OPTIONS
+            Default is GET
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Resource">
+            <summary>
+            The Resource URL to make the request against.
+            Tokens are substituted with UrlSegment parameters and match by name.
+            Should not include the scheme or domain. Do not include leading slash.
+            Combined with RestClient.BaseUrl to assemble final URL:
+            {BaseUrl}/{Resource} (BaseUrl is scheme + domain, e.g. http://example.com)
+            </summary>
+            <example>
+            // example for url token replacement
+            request.Resource = "Products/{ProductId}";
+            request.AddParameter("ProductId", 123, ParameterType.UrlSegment);
+            </example>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.RequestFormat">
+            <summary>
+            Serializer to use when writing XML request bodies. Used if RequestFormat is Xml.
+            By default XmlSerializer is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.RootElement">
+            <summary>
+            Used by the default deserializers to determine where to start deserializing from.
+            Can be used to skip container or root elements that do not have corresponding deserialzation targets.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.DateFormat">
+            <summary>
+            Used by the default deserializers to explicitly set which date format string to use when parsing dates.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.XmlNamespace">
+            <summary>
+            Used by XmlDeserializer. If not specified, XmlDeserializer will flatten response by removing namespaces from element names.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Credentials">
+            <summary>
+            In general you would not need to set this directly. Used by the NtlmAuthenticator. 
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Timeout">
+            <summary>
+            Timeout in milliseconds to be used for the request. This timeout value overrides a timeout set on the RestClient.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.ReadWriteTimeout">
+            <summary>
+            The number of milliseconds before the writing or reading times out.  This timeout value overrides a timeout set on the RestClient.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.Attempts">
+            <summary>
+            How many attempts were made to send this Request?
+            </summary>
+            <remarks>
+            This Number is incremented each time the RestClient sends the request.
+            Useful when using Asynchronous Execution with Callbacks
+            </remarks>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.UseDefaultCredentials">
+            <summary>
+            Determine whether or not the "default credentials" (e.g. the user account under which the current process is running)
+            will be sent along to the server. The default is false.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestRequest.AllowedDecompressionMethods">
+            <summary>
+            List of Allowed Decompression Methods
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddFile(System.String,System.String,System.String)">
+            <summary>
+            Adds a file to the Files collection to be included with a POST or PUT request 
+            (other methods do not support file uploads).
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="path">Full path to file to upload</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddFile(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+            Adds the bytes to the Files collection with the specified file name and content type
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="bytes">The file data</param>
+            <param name="fileName">The file name to use for the uploaded file</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddFile(System.String,System.Action{System.IO.Stream},System.String,System.Int64,System.String)">
+            <summary>
+            Adds the bytes to the Files collection with the specified file name and content type
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="writer">A function that writes directly to the stream.  Should NOT close the stream.</param>
+            <param name="fileName">The file name to use for the uploaded file</param>
+            <param name="contentLength">The length (in bytes) of the file content.</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddFileBytes(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+            Add bytes to the Files collection as if it was a file of specific type
+            </summary>
+            <param name="name">A form parameter name</param>
+            <param name="bytes">The file data</param>
+            <param name="filename">The file name to use for the uploaded file</param>
+            <param name="contentType">Specific content type. Es: application/x-gzip </param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddBody(System.Object,System.String)">
+            <summary>
+            Serializes obj to format specified by RequestFormat, but passes xmlNamespace if using the default XmlSerializer
+            The default format is XML. Change RequestFormat if you wish to use a different serialization format.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <param name="xmlNamespace">The XML namespace to use when serializing</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddBody(System.Object)">
+            <summary>
+            Serializes obj to data format specified by RequestFormat and adds it to the request body.
+            The default format is XML. Change RequestFormat if you wish to use a different serialization format.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddJsonBody(System.Object)">
+            <summary>
+            Serializes obj to JSON format and adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddXmlBody(System.Object)">
+            <summary>
+            Serializes obj to XML format and adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddXmlBody(System.Object,System.String)">
+            <summary>
+            Serializes obj to format specified by RequestFormat, but passes xmlNamespace if using the default XmlSerializer
+            Serializes obj to XML format and passes xmlNamespace then adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <param name="xmlNamespace">The XML namespace to use when serializing</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddObject(System.Object,System.String[])">
+            <summary>
+            Calls AddParameter() for all public, readable properties specified in the includedProperties list
+            </summary>
+            <example>
+            request.AddObject(product, "ProductId", "Price", ...);
+            </example>
+            <param name="obj">The object with properties to add as parameters</param>
+            <param name="includedProperties">The names of the properties to include</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddObject(System.Object)">
+            <summary>
+            Calls AddParameter() for all public, readable properties of obj
+            </summary>
+            <param name="obj">The object with properties to add as parameters</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddParameter(RestSharpRefunds.Parameter)">
+            <summary>
+            Add the parameter to the request
+            </summary>
+            <param name="p">Parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddParameter(System.String,System.Object)">
+            <summary>
+            Adds a HTTP parameter to the request (QueryString for GET, DELETE, OPTIONS and HEAD; Encoded form for POST and PUT)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddParameter(System.String,System.Object,RestSharpRefunds.ParameterType)">
+            <summary>
+            Adds a parameter to the request. There are five types of parameters:
+            - GetOrPost: Either a QueryString value or encoded form value based on method
+            - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+            - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+            - Cookie: Adds the name/value pair to the HTTP request's Cookies collection
+            - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddParameter(System.String,System.Object,System.String,RestSharpRefunds.ParameterType)">
+            <summary>
+            Adds a parameter to the request. There are five types of parameters:
+            - GetOrPost: Either a QueryString value or encoded form value based on method
+            - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+            - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+            - Cookie: Adds the name/value pair to the HTTP request's Cookies collection
+            - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="contentType">Content-Type of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddOrUpdateParameter(RestSharpRefunds.Parameter)">
+            <summary>
+            Add or update the parameter to the request
+            </summary>
+            <param name="p">Parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddOrUpdateParameter(System.String,System.Object)">
+            <summary>
+            Adds a HTTP parameter to the request (QueryString for GET, DELETE, OPTIONS and HEAD; Encoded form for POST and PUT)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddOrUpdateParameter(System.String,System.Object,RestSharpRefunds.ParameterType)">
+            <summary>
+            Adds a parameter to the request. There are five types of parameters:
+            - GetOrPost: Either a QueryString value or encoded form value based on method
+            - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+            - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+            - Cookie: Adds the name/value pair to the HTTP request's Cookies collection
+            - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddOrUpdateParameter(System.String,System.Object,System.String,RestSharpRefunds.ParameterType)">
+            <summary>
+            Adds a parameter to the request. There are five types of parameters:
+            - GetOrPost: Either a QueryString value or encoded form value based on method
+            - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+            - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+            - Cookie: Adds the name/value pair to the HTTP request's Cookies collection
+            - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="contentType">Content-Type of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddHeader(System.String,System.String)">
+            <summary>
+            Shortcut to AddParameter(name, value, HttpHeader) overload
+            </summary>
+            <param name="name">Name of the header to add</param>
+            <param name="value">Value of the header to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddCookie(System.String,System.String)">
+            <summary>
+            Shortcut to AddParameter(name, value, Cookie) overload
+            </summary>
+            <param name="name">Name of the cookie to add</param>
+            <param name="value">Value of the cookie to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddUrlSegment(System.String,System.String)">
+            <summary>
+            Shortcut to AddParameter(name, value, UrlSegment) overload
+            </summary>
+            <param name="name">Name of the segment to add</param>
+            <param name="value">Value of the segment to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddQueryParameter(System.String,System.String)">
+            <summary>
+            Shortcut to AddParameter(name, value, QueryString) overload
+            </summary>
+            <param name="name">Name of the parameter to add</param>
+            <param name="value">Value of the parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.IRestRequest.AddQueryParameter(System.String,System.String,System.Boolean)">
+            <summary>
+            Shortcut to AddParameter(name, value, QueryString) overload
+            </summary>
+            <param name="name">Name of the parameter to add</param>
+            <param name="value">Value of the parameter to add</param>
+            <param name="encode">Whether parameter should be encoded or not</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.IRestResponse">
+            <summary>
+            Container for data sent back from API
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.Request">
+            <summary>
+            The RestRequest that was made to get this RestResponse
+            </summary>
+            <remarks>
+            Mainly for debugging if ResponseStatus is not OK
+            </remarks> 
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ContentType">
+            <summary>
+            MIME content type of response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ContentLength">
+            <summary>
+            Length in bytes of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ContentEncoding">
+            <summary>
+            Encoding of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.Content">
+            <summary>
+            String representation of response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.StatusCode">
+            <summary>
+            HTTP response status code
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.IsSuccessful">
+            <summary>
+            Whether or not the response status code indicates success
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.StatusDescription">
+            <summary>
+            Description of HTTP status returned
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.RawBytes">
+            <summary>
+            Response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ResponseUri">
+            <summary>
+            The URL that actually responded to the content (different from request if redirected)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.Server">
+            <summary>
+            HttpWebResponse.Server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.Cookies">
+            <summary>
+            Cookies returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.Headers">
+            <summary>
+            Headers returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ResponseStatus">
+            <summary>
+            Status of the request. Will return Error for transport errors.
+            HTTP errors will still return ResponseStatus.Completed, check StatusCode instead
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ErrorMessage">
+            <summary>
+            Transport or other non-HTTP error generated while attempting request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ErrorException">
+            <summary>
+            Exceptions thrown during the request, if any.  
+            </summary>
+            <remarks>Will contain only network transport or framework exceptions thrown during the request.
+            HTTP protocol errors are handled by RestSharp and will not appear here.</remarks>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse.ProtocolVersion">
+            <summary>
+            The HTTP protocol version (1.0, 1.1, etc)
+            </summary>
+            <remarks>Only set when underlying framework supports it.</remarks>
+        </member>
+        <member name="T:RestSharpRefunds.IRestResponse`1">
+            <summary>
+            Container for data sent back from API including deserialized data
+            </summary>
+            <typeparam name="T">Type of data to deserialize to</typeparam>
+        </member>
+        <member name="P:RestSharpRefunds.IRestResponse`1.Data">
+            <summary>
+            Deserialized entity data
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Parameter">
+            <summary>
+            Parameter container for REST requests
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Parameter.Name">
+            <summary>
+            Name of the parameter
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Parameter.Value">
+            <summary>
+            Value of the parameter
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Parameter.Type">
+            <summary>
+            Type of the parameter
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Parameter.DataFormat">
+            <summary>
+            Body parameter data type
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Parameter.ContentType">
+            <summary>
+            MIME content type of the parameter
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Parameter.ToString">
+            <summary>
+            Return a human-readable representation of this parameter
+            </summary>
+            <returns>String</returns>
+        </member>
+        <member name="T:RestSharpRefunds.RestClient">
+            <summary>
+                Client to translate RestRequests into Http requests and process response result
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsync(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle},RestSharpRefunds.Method)">
+            <summary>
+                Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+            <param name="httpMethod">HTTP call method (GET, PUT, etc)</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsync(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle})">
+            <summary>
+                Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsyncGet(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+                Executes a GET-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsyncPost(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse,RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+                Executes a POST-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle.</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsync``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle},RestSharpRefunds.Method)">
+            <summary>
+                Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+            <param name="httpMethod">Override the request http method</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsync``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle})">
+            <summary>
+                Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsyncGet``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+                Executes a GET-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteAsyncPost``1(RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0},RestSharpRefunds.RestRequestAsyncHandle},System.String)">
+            <summary>
+                Executes a POST-style request and callback asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+            <param name="httpMethod">The HTTP method to execute</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteGetTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes a GET-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteGetTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes a GET-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecutePostTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes a POST-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecutePostTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes a POST-style request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest,RestSharpRefunds.Method)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="httpMethod">Override the request method</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken,RestSharpRefunds.Method)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+            <param name="httpMethod">Override the request method</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync``1(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteGetTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes a GET-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteGetTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes a GET-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecutePostTaskAsync(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes a POST-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecutePostTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes a POST-style asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken,RestSharpRefunds.Method)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+            <param name="httpMethod">Override the request method</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ExecuteTaskAsync(RestSharpRefunds.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+                Executes the request asynchronously, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="token">The cancellation token</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.#ctor">
+            <summary>
+                Default constructor that registers default content handlers
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.#ctor(System.Uri)">
+            <inheritdoc />
+            <summary>
+                Sets the BaseUrl property for requests made by this client instance
+            </summary>
+            <param name="baseUrl"></param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.#ctor(System.String)">
+            <inheritdoc />
+            <summary>
+                Sets the BaseUrl property for requests made by this client instance
+            </summary>
+            <param name="baseUrl"></param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.UseSerializer(RestSharpRefunds.Serialization.IRestSerializer)">
+            <summary>
+            Replace the default serializer with a custom one
+            </summary>
+            <param name="serializer">The custom serializer instance</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.UseSerializer(System.Func{RestSharpRefunds.Serialization.IRestSerializer})">
+            <summary>
+            Replace the default serializer with a custom one
+            </summary>
+            <param name="serializerFactory">A function that creates a custom serializer instance</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.UseSerializer``1">
+            <summary>
+            Replace the default serializer with a custom one
+            </summary>
+            <typeparam name="T">The type that implements IRestSerializer</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.UseUrlEncoder(System.Func{System.String,System.String})">
+            <summary>
+            Allows to use a custom way to encode parameters
+            </summary>
+            <param name="encoder">A delegate to encode parameters</param>
+            <example>client.UseUrlEncoder(s => HttpUtility.UrlEncode(s));</example>
+            <returns></returns>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.AutomaticDecompression">
+            <summary>
+            Enable or disable automatic gzip/deflate decompression
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.MaxRedirects">
+            <summary>
+                Maximum number of redirects to follow if FollowRedirects is true
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.ClientCertificates">
+            <summary>
+                X509CertificateCollection to be sent with request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.Proxy">
+            <summary>
+                Proxy to use for requests made by this client instance.
+                Passed on to underlying WebRequest if set.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.CachePolicy">
+            <summary>
+                The cache policy to use for requests initiated by this client instance.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.FollowRedirects">
+            <summary>
+                Default is true. Determine whether or not requests that result in
+                HTTP status codes of 3xx should follow returned redirect
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.CookieContainer">
+            <summary>
+                The CookieContainer used for requests made by this client instance
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.UserAgent">
+            <summary>
+                UserAgent to use for requests made by this client instance
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.Timeout">
+            <summary>
+                Timeout in milliseconds to use for requests made by this client instance.
+                If not set, the default timeout for HttpWebRequest is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.ReadWriteTimeout">
+            <summary>
+                The number of milliseconds before the writing or reading times out.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.UseSynchronizationContext">
+            <summary>
+                Whether to invoke async callbacks using the SynchronizationContext.Current captured when invoked
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.Authenticator">
+            <summary>
+                Authenticator to use for requests made by this client instance
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.BaseUrl">
+            <summary>
+                Combined with Request.Resource to construct URL for request
+                Should include scheme and domain without trailing slash.
+            </summary>
+            <example>
+                client.BaseUrl = new Uri("http://example.com");
+            </example>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.FailOnDeserializationError">
+            <summary>
+            Set to false if you want to get ResponseStatus.Completed when deserialization fails.
+            Default is true.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.UnsafeAuthenticatedConnectionSharing">
+            <summary>
+            Allow high-speed NTLM-authenticated connection sharing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.ConnectionGroupName">
+            <summary>
+                The ConnectionGroupName property enables you to associate a request with a connection group. 
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.RemoteCertificateValidationCallback">
+            <summary>
+                Callback function for handling the validation of remote certificates. Useful for certificate pinning and
+                overriding certificate errors in the scope of a request.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.DefaultParameters">
+            <summary>
+                Parameters included with every request made with this instance of RestClient
+                If specified in both client and request, the request wins
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.BaseHost">
+            <summary>
+                Explicit Host header value to use in requests independent from the request URI.
+                If null, default host value extracted from URI is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestClient.AllowMultipleDefaultParametersWithSameName">
+            <summary>
+                Set to true if you need to add multiple default parameters with the same name.
+                Only query and form parameters are supported.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.AddHandler(System.String,System.Func{RestSharpRefunds.Deserializers.IDeserializer})">
+            <summary>
+                Registers a content handler to process response content
+            </summary>
+            <param name="contentType">MIME content type of the response content</param>
+            <param name="deserializerFactory">Deserializer to use to process content</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.AddHandler(System.String,RestSharpRefunds.Deserializers.IDeserializer)">
+            <summary>
+                Registers a content handler to process response content
+            </summary>
+            <param name="contentType">MIME content type of the response content</param>
+            <param name="deserializer">Deserializer to use to process content</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.AddHandler(System.Func{RestSharpRefunds.Deserializers.IDeserializer},System.String[])">
+            <summary>
+                Registers a content handler to process response content
+            </summary>
+            <param name="contentTypes">A list of MIME content types of the response content</param>
+            <param name="deserializerFactory">Deserializer factory to use to process content</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.AddHandler(RestSharpRefunds.Deserializers.IDeserializer,System.String[])">
+            <summary>
+                Registers a content handler to process response content
+            </summary>
+            <param name="contentTypes">A list of MIME content types of the response content</param>
+            <param name="deserializer">Deserializer to use to process content</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.RemoveHandler(System.String)">
+            <summary>
+                Remove a content handler for the specified MIME content type
+            </summary>
+            <param name="contentType">MIME content type to remove</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.ClearHandlers">
+            <summary>
+                Remove all content handlers
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.BuildUri(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Assembles URL to call based on parameters, method and resource
+            </summary>
+            <param name="request">RestRequest to execute</param>
+            <returns>Assembled System.Uri</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.DownloadData(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes the specified request and downloads the response data
+            </summary>
+            <param name="request">Request to execute</param>
+            <returns>Response data</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.DownloadData(RestSharpRefunds.IRestRequest,System.Boolean)">
+            <summary>
+                Executes the specified request and downloads the response data
+            </summary>
+            <param name="request">Request to execute</param>
+            <param name="throwOnError">Throw an exception if download fails.</param>
+            <returns>Response data</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.Execute(RestSharpRefunds.IRestRequest,RestSharpRefunds.Method)">
+            <summary>
+                Executes the request and returns a response, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="httpMethod">Override the http method in the request</param>
+            <returns>RestResponse</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.Execute(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes the request and returns a response, authenticating if needed
+            </summary>
+            <param name="request">Request to be executed</param>
+            <returns>RestResponse</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClient.Execute``1(RestSharpRefunds.IRestRequest)">
+            <summary>
+                Executes the specified request and deserializes the response content using the appropriate content handler
+            </summary>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to execute</param>
+            <returns>RestResponse[[T]] with deserialized data in Data property</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.ExecuteAsync(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse})">
+            <summary>
+            Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="client">The IRestClient this method extends</param>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.ExecuteAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest,System.Action{RestSharpRefunds.IRestResponse{``0}})">
+            <summary>
+            Executes the request and callback asynchronously, authenticating if needed
+            </summary>
+            <param name="client">The IRestClient this method extends</param>
+            <typeparam name="T">Target deserialization type</typeparam>
+            <param name="request">Request to be executed</param>
+            <param name="callback">Callback function to be executed upon completion providing access to the async handle</param>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.GetAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using GET HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.PostAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using POST HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.PutAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using PUT HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.HeadAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using HEAD HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.OptionsAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using OPTIONS HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.PatchAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using PATCH HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.DeleteAsync``1(RestSharpRefunds.IRestClient,RestSharpRefunds.IRestRequest)">
+            <summary>
+            Execute the request using DELETE HTTP method. Exception will be thrown if the request does not succeed.
+            </summary>
+            <param name="client">RestClient instance</param>
+            <param name="request">The request</param>
+            <typeparam name="T">Expected result type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultParameter(RestSharpRefunds.IRestClient,RestSharpRefunds.Parameter)">
+            <summary>
+            Add a parameter to use on every request made with this client instance
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="p">Parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.RemoveDefaultParameter(RestSharpRefunds.IRestClient,System.String)">
+            <summary>
+            Removes a parameter from the default parameters that are used on every request made with this client instance
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">The name of the parameter that needs to be removed</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultParameter(RestSharpRefunds.IRestClient,System.String,System.Object)">
+            <summary>
+            Adds a default HTTP parameter (QueryString for GET, DELETE, OPTIONS and HEAD; Encoded form for POST and PUT)
+            Used on every request made by this client instance
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultParameter(RestSharpRefunds.IRestClient,System.String,System.Object,RestSharpRefunds.ParameterType)">
+            <summary>
+            Adds a default parameter to the request. There are four types of parameters:
+               - GetOrPost: Either a QueryString value or encoded form value based on method
+               - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+               - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+               - RequestBody: Used by AddBody() (not recommended to use directly)
+            Used on every request made by this client instance
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultHeader(RestSharpRefunds.IRestClient,System.String,System.String)">
+            <summary>
+            Adds a default header to the RestClient. Used on every request made by this client instance.
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">Name of the header to add</param>
+            <param name="value">Value of the header to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultUrlSegment(RestSharpRefunds.IRestClient,System.String,System.String)">
+            <summary>
+            Adds a default URL segment parameter to the RestClient. Used on every request made by this client instance.
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">Name of the segment to add</param>
+            <param name="value">Value of the segment to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestClientExtensions.AddDefaultQueryParameter(RestSharpRefunds.IRestClient,System.String,System.String)">
+            <summary>
+            Adds a default URL query parameter to the RestClient. Used on every request made by this client instance.
+            </summary>
+            <param name="restClient">The IRestClient instance</param>
+            <param name="name">Name of the query parameter to add</param>
+            <param name="value">Value of the query parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.RestRequest">
+            <summary>
+                Container for data used to make requests
+            </summary>
+        </member>
+        <member name="F:RestSharpRefunds.RestRequest._allowedDecompressionMethods">
+            <summary>
+                Local list of Allowed Decompression Methods
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.#ctor(RestSharpRefunds.Method)">
+            <summary>
+                Sets Method property to value of method
+            </summary>
+            <param name="method">Method to use for this request</param>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.UserState">
+            <summary>
+                Gets or sets a user-defined state object that contains information about a request and which can be later
+                retrieved when the request completes.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.AllowedDecompressionMethods">
+            <summary>
+                List of Allowed Decompresison Methods
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.AlwaysMultipartFormData">
+            <summary>
+                Always send a multipart/form-data request - even when no Files are present.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.JsonSerializer">
+            <summary>
+                Serializer to use when writing JSON request bodies. Used if RequestFormat is Json.
+                By default the included JsonSerializer is used (currently using JSON.NET default serialization).
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.XmlSerializer">
+            <summary>
+                Serializer to use when writing XML request bodies. Used if RequestFormat is Xml.
+                By default the included XmlSerializer is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.ResponseWriter">
+            <summary>
+                Set this to write response to Stream rather than reading into memory.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.AdvancedResponseWriter">
+            <summary>
+            Set this to handle the response stream yourself, based on the response details
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.UseDefaultCredentials">
+            <summary>
+                Determine whether or not the "default credentials" (e.g. the user account under which the current process is
+                running)
+                will be sent along to the server. The default is false.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddFile(System.String,System.String,System.String)">
+            <summary>
+                Adds a file to the Files collection to be included with a POST or PUT request
+                (other methods do not support file uploads).
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="path">Full path to file to upload</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddFile(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+                Adds the bytes to the Files collection with the specified file name
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="bytes">The file data</param>
+            <param name="fileName">The file name to use for the uploaded file</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddFile(System.String,System.Action{System.IO.Stream},System.String,System.Int64,System.String)">
+            <summary>
+                Adds the bytes to the Files collection with the specified file name and content type
+            </summary>
+            <param name="name">The parameter name to use in the request</param>
+            <param name="writer">A function that writes directly to the stream.  Should NOT close the stream.</param>
+            <param name="fileName">The file name to use for the uploaded file</param>
+            <param name="contentLength">The length (in bytes) of the file content.</param>
+            <param name="contentType">The MIME type of the file to upload</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddFileBytes(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+                Add bytes to the Files collection as if it was a file of specific type
+            </summary>
+            <param name="name">A form parameter name</param>
+            <param name="bytes">The file data</param>
+            <param name="filename">The file name to use for the uploaded file</param>
+            <param name="contentType">Specific content type. Es: application/x-gzip </param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddBody(System.Object,System.String)">
+            <summary>
+                Serializes obj to format specified by RequestFormat, but passes xmlNamespace if using the default XmlSerializer
+                The default format is XML. Change RequestFormat if you wish to use a different serialization format.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <param name="xmlNamespace">The XML namespace to use when serializing</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddBody(System.Object)">
+            <summary>
+                Serializes obj to data format specified by RequestFormat and adds it to the request body.
+                The default format is XML. Change RequestFormat if you wish to use a different serialization format.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddJsonBody(System.Object)">
+            <summary>
+                Serializes obj to JSON format and adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddXmlBody(System.Object)">
+            <summary>
+                Serializes obj to XML format and adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddXmlBody(System.Object,System.String)">
+            <summary>
+                Serializes obj to XML format and passes xmlNamespace then adds it to the request body.
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <param name="xmlNamespace">The XML namespace to use when serializing</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddObject(System.Object,System.String[])">
+            <summary>
+                Calls AddParameter() for all public, readable properties specified in the includedProperties list
+            </summary>
+            <example>
+                request.AddObject(product, "ProductId", "Price", ...);
+            </example>
+            <param name="obj">The object with properties to add as parameters</param>
+            <param name="includedProperties">The names of the properties to include</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddObject(System.Object)">
+            <summary>
+                Calls AddParameter() for all public, readable properties of obj
+            </summary>
+            <param name="obj">The object with properties to add as parameters</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddParameter(RestSharpRefunds.Parameter)">
+            <summary>
+                Add the parameter to the request
+            </summary>
+            <param name="p">Parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddParameter(System.String,System.Object)">
+            <summary>
+                Adds a HTTP parameter to the request (QueryString for GET, DELETE, OPTIONS and HEAD; Encoded form for POST and PUT)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddParameter(System.String,System.Object,RestSharpRefunds.ParameterType)">
+            <summary>
+                Adds a parameter to the request. There are four types of parameters:
+                - GetOrPost: Either a QueryString value or encoded form value based on method
+                - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+                - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+                - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddParameter(System.String,System.Object,System.String,RestSharpRefunds.ParameterType)">
+            <summary>
+                Adds a parameter to the request. There are four types of parameters:
+                - GetOrPost: Either a QueryString value or encoded form value based on method
+                - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+                - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+                - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="contentType">Content-Type of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddOrUpdateParameter(RestSharpRefunds.Parameter)">
+            <summary>
+                Adds a parameter to the request or updates it with the given argument, if the parameter already exists in the
+                request
+            </summary>
+            <param name="p">Parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddOrUpdateParameter(System.String,System.Object)">
+            <summary>
+                Adds a HTTP parameter to the request or updates it with the given argument, if the parameter already exists in the
+                request
+                (QueryString for GET, DELETE, OPTIONS and HEAD; Encoded form for POST and PUT)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddOrUpdateParameter(System.String,System.Object,RestSharpRefunds.ParameterType)">
+            <inheritdoc />
+            <summary>
+                Adds a HTTP parameter to the request or updates it with the given argument, if the parameter already exists in the
+                request
+                - GetOrPost: Either a QueryString value or encoded form value based on method
+                - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+                - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+                - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddOrUpdateParameter(System.String,System.Object,System.String,RestSharpRefunds.ParameterType)">
+            <summary>
+                Adds a HTTP parameter to the request or updates it with the given argument, if the parameter already exists in the
+                request
+                - GetOrPost: Either a QueryString value or encoded form value based on method
+                - HttpHeader: Adds the name/value pair to the HTTP request's Headers collection
+                - UrlSegment: Inserted into URL if there is a matching url token e.g. {AccountId}
+                - RequestBody: Used by AddBody() (not recommended to use directly)
+            </summary>
+            <param name="name">Name of the parameter</param>
+            <param name="value">Value of the parameter</param>
+            <param name="contentType">Content-Type of the parameter</param>
+            <param name="type">The type of parameter to add</param>
+            <returns>This request</returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddHeader(System.String,System.String)">
+            <inheritdoc />
+            <summary>
+                Shortcut to AddParameter(name, value, HttpHeader) overload
+            </summary>
+            <param name="name">Name of the header to add</param>
+            <param name="value">Value of the header to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddCookie(System.String,System.String)">
+            <inheritdoc />
+            <summary>
+                Shortcut to AddParameter(name, value, Cookie) overload
+            </summary>
+            <param name="name">Name of the cookie to add</param>
+            <param name="value">Value of the cookie to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddUrlSegment(System.String,System.String)">
+            <summary>
+                Shortcut to AddParameter(name, value, UrlSegment) overload
+            </summary>
+            <param name="name">Name of the segment to add</param>
+            <param name="value">Value of the segment to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddQueryParameter(System.String,System.String)">
+            <summary>
+                Shortcut to AddParameter(name, value, QueryString) overload
+            </summary>
+            <param name="name">Name of the parameter to add</param>
+            <param name="value">Value of the parameter to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddQueryParameter(System.String,System.String,System.Boolean)">
+            <summary>
+                Shortcut to AddParameter(name, value, QueryString) overload
+            </summary>
+            <param name="name">Name of the parameter to add</param>
+            <param name="value">Value of the parameter to add</param>
+            <param name="encode">Whether parameter should be encoded or not</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddDecompressionMethod(System.Net.DecompressionMethods)">
+            <summary>
+                Add a Decompression Method to the request
+            </summary>
+            <param name="decompressionMethod">None | GZip | Deflate</param>
+            <returns></returns>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Parameters">
+            <summary>
+                Container of all HTTP parameters to be passed with the request.
+                See AddParameter() for explanation of the types of parameters that can be passed
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Files">
+            <summary>
+                Container of all the files to be uploaded with the request.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Method">
+            <summary>
+                Determines what HTTP method to use for this request. Supported methods: GET, POST, PUT, DELETE, HEAD, OPTIONS
+                Default is GET
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Resource">
+            <summary>
+                The Resource URL to make the request against.
+                Tokens are substituted with UrlSegment parameters and match by name.
+                Should not include the scheme or domain. Do not include leading slash.
+                Combined with RestClient.BaseUrl to assemble final URL:
+                {BaseUrl}/{Resource} (BaseUrl is scheme + domain, e.g. http://example.com)
+            </summary>
+            <example>
+                // example for url token replacement
+                request.Resource = "Products/{ProductId}";
+                request.AddParameter("ProductId", 123, ParameterType.UrlSegment);
+            </example>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.RequestFormat">
+            <summary>
+                Determines how to serialize the request body.
+                By default Xml is used.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.RootElement">
+            <summary>
+                Used by the default deserializers to determine where to start deserializing from.
+                Can be used to skip container or root elements that do not have corresponding deserialzation targets.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.OnBeforeDeserialization">
+            <summary>
+                A function to run prior to deserializing starting (e.g. change settings if error encountered)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.DateFormat">
+            <summary>
+                Used by the default deserializers to explicitly set which date format string to use when parsing dates.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.XmlNamespace">
+            <summary>
+                Used by XmlDeserializer. If not specified, XmlDeserializer will flatten response by removing namespaces from
+                element names.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Credentials">
+            <summary>
+                In general you would not need to set this directly. Used by the NtlmAuthenticator.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Timeout">
+            <summary>
+                Timeout in milliseconds to be used for the request. This timeout value overrides a timeout set on the RestClient.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.ReadWriteTimeout">
+            <summary>
+                The number of milliseconds before the writing or reading times out.  This timeout value overrides a timeout set on
+                the RestClient.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.IncreaseNumAttempts">
+            <summary>
+                Internal Method so that RestClient can increase the number of attempts
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestRequest.Attempts">
+            <summary>
+                How many attempts were made to send this Request?
+            </summary>
+            <remarks>
+                This Number is incremented each time the RestClient sends the request.
+                Useful when using Asynchronous Execution with Callbacks
+            </remarks>
+        </member>
+        <member name="M:RestSharpRefunds.RestRequest.AddUrlSegment(System.String,System.Object)">
+            <summary>
+                Shortcut to AddParameter(name, value, UrlSegment) overload
+            </summary>
+            <param name="name">Name of the segment to add</param>
+            <param name="value">Value of the segment to add</param>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.RestResponseBase">
+            <summary>
+                Base class for common properties shared by RestResponse and RestResponse[[T]]
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.RestResponseBase.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.Request">
+            <summary>
+                The RestRequest that was made to get this RestResponse
+            </summary>
+            <remarks>
+                Mainly for debugging if ResponseStatus is not OK
+            </remarks>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ContentType">
+            <summary>
+                MIME content type of response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ContentLength">
+            <summary>
+                Length in bytes of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ContentEncoding">
+            <summary>
+                Encoding of the response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.Content">
+            <summary>
+                String representation of response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.StatusCode">
+            <summary>
+                HTTP response status code
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.IsSuccessful">
+            <summary>
+                Whether or not the response status code indicates success
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.StatusDescription">
+            <summary>
+                Description of HTTP status returned
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.RawBytes">
+            <summary>
+                Response content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ResponseUri">
+            <summary>
+                The URL that actually responded to the content (different from request if redirected)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.Server">
+            <summary>
+                HttpWebResponse.Server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.Cookies">
+            <summary>
+                Cookies returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.Headers">
+            <summary>
+                Headers returned by server with the response
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ResponseStatus">
+            <summary>
+                Status of the request. Will return Error for transport errors.
+                HTTP errors will still return ResponseStatus.Completed, check StatusCode instead
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ErrorMessage">
+            <summary>
+                Transport or other non-HTTP error generated while attempting request
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ErrorException">
+            <summary>
+                The exception thrown during the request, if any
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseBase.ProtocolVersion">
+            <summary>
+                The HTTP protocol version (1.0, 1.1, etc)
+            </summary>
+            <remarks>Only set when underlying framework supports it.</remarks>
+        </member>
+        <member name="M:RestSharpRefunds.RestResponseBase.DebuggerDisplay">
+            <summary>
+                Assists with debugging responses by displaying in the debugger output
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RestSharpRefunds.RestResponse`1">
+            <summary>
+                Container for data sent back from API including deserialized data
+            </summary>
+            <typeparam name="T">Type of data to deserialize to</typeparam>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponse`1.Data">
+            <summary>
+                Deserialized entity data
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.RestResponse">
+            <summary>
+                Container for data sent back from API
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Comment">
+            <summary>
+            Comment of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.CommentUri">
+            <summary>
+            Comment of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Discard">
+            <summary>
+            Indicates whether the cookie should be discarded at the end of the session
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Domain">
+            <summary>
+            Domain of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Expired">
+            <summary>
+            Indicates whether the cookie is expired
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Expires">
+            <summary>
+            Date and time that the cookie expires
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.HttpOnly">
+            <summary>
+            Indicates that this cookie should only be accessed by the server
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Name">
+            <summary>
+            Name of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Path">
+            <summary>
+            Path of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Port">
+            <summary>
+            Port of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Secure">
+            <summary>
+            Indicates that the cookie should only be sent over secure channels
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.TimeStamp">
+            <summary>
+            Date and time the cookie was created
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Value">
+            <summary>
+            Value of the cookie
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.RestResponseCookie.Version">
+            <summary>
+            Version of the cookie
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serialization.Json.JsonSerializer.Serialize(System.Object)">
+            <summary>
+            Serialize the object as JSON
+            If the object is already a serialized string returns it's value
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <returns>JSON as String</returns>
+        </member>
+        <member name="M:RestSharpRefunds.Serialization.Json.JsonSerializer.IsSerializedString(System.Object,System.String@)">
+            <summary>
+            Determines if the object is already a serialized string.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serialization.Json.JsonSerializer.ContentType">
+            <summary>
+            Content type for serialized content
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serialization.Xml.XmlSerilizationOptions.RootElement">
+            <summary>
+                Name of the root element to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serialization.Xml.XmlSerilizationOptions.Namespace">
+            <summary>
+                XML namespace to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serialization.Xml.XmlSerilizationOptions.DateFormat">
+            <summary>
+                Format string to use when serializing dates
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Deserializers.DeserializeAsAttribute">
+            <summary>
+            Allows control how class and property names and values are deserialized by XmlAttributeDeserializer
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DeserializeAsAttribute.Name">
+            <summary>
+            The name to use for the serialized element
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DeserializeAsAttribute.Attribute">
+            <summary>
+            Sets if the property to Deserialize is an Attribute or Element (Default: false)
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DeserializeAsAttribute.Content">
+            <summary>
+            Sets if the property to Deserialize is a content of current Element (Default: false)
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Deserializers.DotNetXmlDeserializer">
+            <summary>
+            Wrapper for System.Xml.Serialization.XmlSerializer.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DotNetXmlDeserializer.RootElement">
+            <summary>
+                Name of the root element to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DotNetXmlDeserializer.Namespace">
+            <summary>
+                XML namespace to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Deserializers.DotNetXmlDeserializer.Encoding">
+            <summary>
+                Encoding for serialized content
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Serializers.SerializeAsAttribute">
+            <summary>
+            Allows control how class and property names and values are serialized by XmlSerializer
+            Currently not supported with the JsonSerializer
+            When specified at the property level the class-level specification is overridden
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.Name">
+            <summary>
+            The name to use for the serialized element
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.Attribute">
+            <summary>
+            Sets the value to be serialized as an Attribute instead of an Element
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.Content">
+            <summary>
+            Sets the value to be serialized as text content of current Element instead of an new Element
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.Culture">
+            <summary>
+            The culture to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.NameStyle">
+            <summary>
+            Transforms the casing of the name based on the selected value.
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.SerializeAsAttribute.Index">
+            <summary>
+            The order to serialize the element. Default is int.MaxValue.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.SerializeAsAttribute.TransformName(System.String)">
+            <summary>
+            Called by the attribute when NameStyle is speficied
+            </summary>
+            <param name="input">The string to transform</param>
+            <returns>String</returns>
+        </member>
+        <member name="T:RestSharpRefunds.Serializers.NameStyle">
+            <summary>
+            Options for transforming casing of element names
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Serializers.DotNetXmlSerializer">
+            <summary>
+                Wrapper for System.Xml.Serialization.XmlSerializer.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.DotNetXmlSerializer.#ctor">
+            <summary>
+                Default constructor, does not specify namespace
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.DotNetXmlSerializer.#ctor(System.String)">
+            <inheritdoc />
+            <summary>
+                Specify the namespaced to be used when serializing
+            </summary>
+            <param name="namespace">XML namespace</param>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.DotNetXmlSerializer.Encoding">
+            <summary>
+                Encoding for serialized content
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.DotNetXmlSerializer.Serialize(System.Object)">
+            <summary>
+                Serialize the object as XML
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <returns>XML as string</returns>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.DotNetXmlSerializer.RootElement">
+            <summary>
+                Name of the root element to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.DotNetXmlSerializer.Namespace">
+            <summary>
+                XML namespace to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.DotNetXmlSerializer.DateFormat">
+            <summary>
+                Format string to use when serializing dates
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.DotNetXmlSerializer.ContentType">
+            <summary>
+                Content type for serialized content
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Serializers.XmlSerializer">
+            <summary>
+                Default XML Serializer
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.XmlSerializer.#ctor">
+            <summary>
+                Default constructor, does not specify namespace
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.XmlSerializer.#ctor(System.String)">
+            <summary>
+                Specify the namespaced to be used when serializing
+            </summary>
+            <param name="namespace">XML namespace</param>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.XmlSerializer.Serialize(System.Object)">
+            <summary>
+                Serialize the object as XML
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <returns>XML as string</returns>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.XmlSerializer.RootElement">
+            <summary>
+                Name of the root element to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.XmlSerializer.Namespace">
+            <summary>
+                XML namespace to use when serializing
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.XmlSerializer.DateFormat">
+            <summary>
+                Format string to use when serializing dates
+            </summary>
+        </member>
+        <member name="P:RestSharpRefunds.Serializers.XmlSerializer.ContentType">
+            <summary>
+                Content type for serialized content
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Serializers.XmlSerializer.IsNumeric(System.Object)">
+            <summary>
+                Determines if a given object is numeric in any way
+                (can be integer, double, null, etc).
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.JsonArray">
+            <summary>
+            Represents the json array.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.JsonArray.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RestSharpRefunds.JsonArray"/> class. 
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.JsonArray.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RestSharpRefunds.JsonArray"/> class. 
+            </summary>
+            <param name="capacity">The capacity of the json array.</param>
+        </member>
+        <member name="M:RestSharpRefunds.JsonArray.ToString">
+            <summary>
+            The json representation of the array.
+            </summary>
+            <returns>The json representation of the array.</returns>
+        </member>
+        <member name="T:RestSharpRefunds.JsonObject">
+            <summary>
+            Represents the json object.
+            </summary>
+        </member>
+        <member name="F:RestSharpRefunds.JsonObject._members">
+            <summary>
+            The internal member dictionary.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:RestSharpRefunds.JsonObject"/>.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Initializes a new instance of <see cref="T:RestSharpRefunds.JsonObject"/>.
+            </summary>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> implementation to use when comparing keys, or null to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1"/> for the type of the key.</param>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Add(System.String,System.Object)">
+            <summary>
+            Adds the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.ContainsKey(System.String)">
+            <summary>
+            Determines whether the specified key contains key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+                <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.Keys">
+            <summary>
+            Gets the keys.
+            </summary>
+            <value>The keys.</value>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Remove(System.String)">
+            <summary>
+            Removes the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Tries the get value.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.Values">
+            <summary>
+            Gets the values.
+            </summary>
+            <value>The values.</value>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Add(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Adds the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Clear">
+            <summary>
+            Clears this instance.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Contains(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Determines whether [contains] [the specified item].
+            </summary>
+            <param name="item">The item.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified item]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Object}[],System.Int32)">
+            <summary>
+            Copies to.
+            </summary>
+            <param name="array">The array.</param>
+            <param name="arrayIndex">Index of the array.</param>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.Count">
+            <summary>
+            Gets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:RestSharpRefunds.JsonObject.IsReadOnly">
+            <summary>
+            Gets a value indicating whether this instance is read only.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.Remove(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Removes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.GetEnumerator">
+            <summary>
+            Gets the enumerator.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:RestSharpRefunds.JsonObject.ToString">
+            <summary>
+            Returns a json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="T:RestSharpRefunds.SimpleJson">
+            <summary>
+            This class encodes and decodes JSON strings.
+            Spec. details, see http://www.json.org/
+            
+            JSON uses Arrays and Objects. These correspond here to the datatypes JsonArray(IList&lt;object>) and JsonObject(IDictionary&lt;string,object>).
+            All numbers are parsed to doubles.
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.SimpleJson.DeserializeObject(System.String)">
+            <summary>
+            Parses the string json into a value
+            </summary>
+            <param name="json">A JSON string.</param>
+            <returns>An IList&lt;object>, a IDictionary&lt;string,object>, a double, a string, null, true, or false</returns>
+        </member>
+        <member name="M:RestSharpRefunds.SimpleJson.TryDeserializeObject(System.String,System.Object@)">
+            <summary>
+            Try parsing the json string into a value.
+            </summary>
+            <param name="json">
+            A JSON string.
+            </param>
+            <param name="obj">
+            The object.
+            </param>
+            <returns>
+            Returns true if successfull otherwise false.
+            </returns>
+        </member>
+        <member name="M:RestSharpRefunds.SimpleJson.SerializeObject(System.Object,RestSharpRefunds.IJsonSerializerStrategy)">
+            <summary>
+            Converts a IDictionary&lt;string,object> / IList&lt;object> object into a JSON string
+            </summary>
+            <param name="json">A IDictionary&lt;string,object> / IList&lt;object></param>
+            <param name="jsonSerializerStrategy">Serializer strategy to use</param>
+            <returns>A JSON encoded string, or null if object 'json' is not serializable</returns>
+        </member>
+        <member name="M:RestSharpRefunds.SimpleJson.IsNumeric(System.Object)">
+            <summary>
+            Determines if a given object is numeric in any way
+            (can be integer, double, null, etc).
+            </summary>
+        </member>
+        <member name="T:RestSharpRefunds.Validation.Require">
+            <summary>
+            Helper methods for validating required values
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Validation.Require.Argument(System.String,System.Object)">
+            <summary>
+            Require a parameter to not be null
+            </summary>
+            <param name="argumentName">Name of the parameter</param>
+            <param name="argumentValue">Value of the parameter</param>
+        </member>
+        <member name="T:RestSharpRefunds.Validation.Validate">
+            <summary>
+            Helper methods for validating values
+            </summary>
+        </member>
+        <member name="M:RestSharpRefunds.Validation.Validate.IsBetween(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Validate an integer value is between the specified values (exclusive of min/max)
+            </summary>
+            <param name="value">Value to validate</param>
+            <param name="min">Exclusive minimum value</param>
+            <param name="max">Exclusive maximum value</param>
+        </member>
+        <member name="M:RestSharpRefunds.Validation.Validate.IsValidLength(System.String,System.Int32)">
+            <summary>
+            Validate a string length
+            </summary>
+            <param name="value">String to be validated</param>
+            <param name="maxSize">Maximum length of the string</param>
+        </member>
+    </members>
+</doc>

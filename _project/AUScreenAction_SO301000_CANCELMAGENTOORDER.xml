@@ -1,0 +1,3 @@
+﻿<AUScreenAction ScreenID="SO301000" ActionName="CancelMagentoOrder" DataMember="PX.Objects.SO.SOOrder" MenuFolder="Action" MenuFolderType="ActionsFolder" ActionFolderType="" IsTopLevel="False">
+    <Prop Name="IsVisible" DisplayName="Visible" IsCustomized="True" Value="False" />
+</AUScreenAction>

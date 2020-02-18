@@ -1,0 +1,11 @@
+﻿<Sql TableName="ArcActionPreferences" TableSchemaXml="#CDATA">
+    <CDATA name="TableSchemaXml"><![CDATA[<table name="ArcActionPreferences">
+  <col name="CompanyID" type="Int" default="Zero" />
+  <col name="Action" type="NVarChar(50)" />
+  <col name="Visible" type="Bit" nullable="true" />
+  <index name="ArcActionPreferences_PK" clustered="true" primary="true" unique="true">
+    <col name="CompanyID" />
+    <col name="Action" />
+  </index>
+</table>]]></CDATA>
+</Sql>

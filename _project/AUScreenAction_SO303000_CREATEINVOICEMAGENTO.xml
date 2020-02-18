@@ -1,0 +1,3 @@
+﻿<AUScreenAction ScreenID="SO303000" ActionName="CreateInvoiceMagento" DataMember="PX.Objects.AR.ARInvoice" MenuFolder="Action" MenuFolderType="ActionsFolder" ActionFolderType="" IsTopLevel="False">
+    <Prop Name="IsVisible" DisplayName="Visible" IsCustomized="True" Value="False" />
+</AUScreenAction>
